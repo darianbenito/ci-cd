@@ -18,8 +18,8 @@ pipeline {
                     }
                     steps {
                         withDockerRegistry(credentialsId: "${DOCKER_CREDENTIALS_ID}", url: "") {
-                            sh 'docker build --tag "${DOCKER_IMAGE_NAME}:${GIT_COMMIT}" .'
-                            sh 'docker push "${DOCKER_IMAGE_NAME}:${GIT_COMMIT}"'
+                            sh 'docker build --tag "${DOCKER_IMAGE_NAME}:pr-${GIT_COMMIT}" .'
+                            sh 'docker push "${DOCKER_IMAGE_NAME}:pr-${GIT_COMMIT}"'
                         }
                     }
                 }
