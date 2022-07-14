@@ -23,6 +23,17 @@ pipeline {
                         }
                     }
                 }
+                stage('Publish image from main') {
+                    when {
+                        branch 'main'
+                    }
+                    steps {
+                        withDockerRegistry(credentialsId: "${DOCKER_CREDENTIALS_ID}", url: "") {
+                            sh 'docker build --tag "${DOCKER_IMAGE_NAME}:${GIT_COMMIT}" .'
+                            sh 'docker push "${DOCKER_IMAGE_NAME}:${GIT_COMMIT}"'
+                        }
+                    }
+                }
             }
         }
     }
